@@ -1,0 +1,43 @@
+<div>
+  Product Name
+  <input [(ngModel)]="product.name" type="text">
+</div>
+<div>
+  Product Price
+  <input [(ngModel)]="product.price" type="number">
+</div>
+<div>
+  Product Description
+  <textarea [(ngModel)]="product.description"></textarea>
+</div>
+<div>
+  Product Stock Quantity
+  <input [(ngModel)]="product.quantity" type="number">
+</div>
+
+<button (click)="save()">Save Product</button>
+<button (click)="remove()">Delete Product</button>
+
+<table>
+  <tbody>
+    <tr>
+      <th>Sl</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let product of products">
+      <td>{{product.id + 1}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.description}}</td>
+      <td>{{product.quantity}}</td>
+      <td>
+        <button (click)="editProduct(product)">Edit</button>
+        <button (click)="deleteProduct(product)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
