@@ -1,23 +1,23 @@
-<div>
-  Product Name
-  <input [(ngModel)]="product.name" type="text">
+<div class="form-group">
+  <div>Product Name</div>
+  <div><input [(ngModel)]="product.name" type="text"></div>
 </div>
-<div>
-  Product Price
-  <input [(ngModel)]="product.price" type="number">
+<div class="form-group">
+  <div>Product Price</div>
+  <div><input [(ngModel)]="product.price" type="number"></div>
 </div>
-<div>
-  Product Description
-  <textarea [(ngModel)]="product.description"></textarea>
+<div class="form-group">
+  <div>Product Description</div>
+  <div><textarea [(ngModel)]="product.description"></textarea></div>
 </div>
-<div>
-  Product Stock Quantity
-  <input [(ngModel)]="product.quantity" type="number">
+<div class="form-group">
+  <div>Product Stock Quantity</div>
+  <div><input [(ngModel)]="product.quantity" type="number"></div>
 </div>
 
 <button (click)="save()">Save Product</button>
 <button (click)="remove()">Delete Product</button>
-
+<br>
 <table>
   <tbody>
     <tr>

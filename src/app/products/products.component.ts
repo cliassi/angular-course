@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../@models/product';
+import { ItemService } from '../@services/item.service';
 
 @Component({
   selector: 'app-products',
@@ -8,35 +10,28 @@ import { Component, OnInit } from '@angular/core';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
 
+  constructor(private itemService: ItemService) {}
+
   //placeholder/form
   product: Product = {} as Product;
   currnetIndex: number = 1;
 
   ngOnInit() {
-    this.reload();
-  }
-
-  reload() {
-    var products =
-      localStorage.getItem('product') ?? JSON.stringify({} as Product);
-    this.products = JSON.parse(products);
-    this.currnetIndex = this.products.length + 1;
+    this.itemService.get().subscribe((data: any) => {
+      this.products = data.map((e: any) => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data(),
+        } as Product[];
+      });
+    });
   }
 
   save() {
-    if (this.product.id > 0) {
-      // Update
-      localStorage.setItem('product', JSON.stringify(this.products));
-      var product = {} as Product;
-      this.product = product;
+    if (this.product.id) {
+      this.itemService.update(this.product);
     } else {
-      //Add
-      this.product.id = this.currnetIndex;
-      this.products.push(this.product);
-      localStorage.setItem('product', JSON.stringify(this.products));
-      var product = {} as Product;
-      this.product = product;
-      this.currnetIndex++;
+      this.itemService.create(this.product);
     }
   }
 
@@ -49,16 +44,9 @@ export class ProductsComponent implements OnInit {
     this.product = product;
   }
   deleteProduct(product: Product) {
-    const index = this.products.indexOf(product);
-    this.products.splice(index, 1);
-    localStorage.setItem('product', JSON.stringify(this.products));
+    this.itemService.remove(product.id).then((res) => {
+      alert("Yey! it's gone");
+    });
+    // this.productService.delete(product);
   }
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  quantity: number;
 }

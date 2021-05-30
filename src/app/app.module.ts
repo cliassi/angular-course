@@ -6,17 +6,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
 
+
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import firebase from 'firebase';
+firebase.initializeApp(environment.firebaseConfig);
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProductsComponent
-  ],
+  declarations: [AppComponent, ProductsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    //Firebase
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
