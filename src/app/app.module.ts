@@ -10,6 +10,7 @@ import { ProductsComponent } from './products/products.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import firebase from 'firebase';
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -21,6 +22,7 @@ firebase.initializeApp(environment.firebaseConfig);
     //Firebase
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     FormsModule,
   ],
   providers: [],
