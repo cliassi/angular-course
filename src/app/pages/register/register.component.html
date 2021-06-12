@@ -1,0 +1,27 @@
+<div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label for="name">Name</label>
+      <input type="test" formControlName="name">
+      <span class="error" *ngIf="form.get('name').touched && form.get('name').hasError('required')">Name is required</span>
+    </div>
+    <div>
+      <label for="email">Username (Email)</label>
+      <input type="email" formControlName="email">
+      <span class="error" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email is required</span>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" formControlName="password">
+      <span class="error" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required</span>
+    </div>
+
+    <div class="photo-wrapper" onclick="document.getElementById('getFile').click()">
+      <img [src]="photo" class="object-cover">
+      <input type='file' accept="image/*" id="getFile" name="imageUrl" style="display:none" (change)="handleInputChange($event)">
+    </div>
+    <button>Register</button>
+  </form>
+  <br>
+  <a [routerLink]="['/']" routerLinkActive="router-link-active">Already have an account?</a>
+</div>
