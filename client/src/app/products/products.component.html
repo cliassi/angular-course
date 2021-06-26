@@ -1,0 +1,59 @@
+<div>{{date | customeDate}}</div>
+<div>{{1000 | currency}}</div>
+<div class="form-group">
+  <div>{{'Product Name' | uppercase}}</div>
+  <div><input [(ngModel)]="product.name" type="text"></div>
+</div>
+<div class="form-group">
+  <div>Product Price</div>
+  <div><input [(ngModel)]="product.price" type="number"></div>
+</div>
+<div class="form-group">
+  <div>Product Description</div>
+  <div><textarea [(ngModel)]="product.description"></textarea></div>
+</div>
+<div class="form-group">
+  <div>Product Stock Quantity</div>
+  <div><input [(ngModel)]="product.quantity" required appDigitOnly></div>
+</div>
+
+<div class="form-group">
+  <div>Product Category</div>
+  <div>
+    <select [(ngModel)]="product.category">
+      <option *ngFor="let item of categories" [value]="item">{{item}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+  <div>In Stock?</div>
+  <div><input type="checkbox" [(ngModel)]="product.hasStock"></div>
+</div>
+
+<button (click)="save()">Save Product</button>
+<button (click)="remove()">Delete Product</button>
+<br>
+<table>
+  <tbody>
+    <tr>
+      <th>Sl</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let product of products">
+      <td>{{product.id + 1}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.description}}</td>
+      <td>{{product.quantity}}</td>
+      <td>
+        <button (click)="editProduct(product)">Edit</button>
+        <button (click)="deleteProduct(product)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
