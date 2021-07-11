@@ -19,6 +19,7 @@ import { LoaderInterceptor } from './loader.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import {
+  EntityDataModule,
   EntityDataService,
   EntityDefinitionService,
   EntityMetadataMap,
@@ -28,6 +29,8 @@ import {
   ProductEntityService,
   ProductResolver,
 } from './products/product.entity.service';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 firebase.initializeApp(environment.firebaseConfig);
 
 const entityMedadata: EntityMetadataMap = {
@@ -52,6 +55,7 @@ const entityMedadata: EntityMetadataMap = {
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,
@@ -60,6 +64,13 @@ const entityMedadata: EntityMetadataMap = {
         strictStateSerializability: true,
       },
     }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot({}),
   ],
   providers: [
     EntityDefinitionService,

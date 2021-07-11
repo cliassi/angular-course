@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit {
   date = new Date();
 
   ngOnInit() {
+    debugger;
     this.productService.get().subscribe((res: Product[]) => {
       this.products = res;
     });

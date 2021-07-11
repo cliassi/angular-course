@@ -50,8 +50,8 @@ export class ProductDataService extends DefaultDataService<Product> {
   constructor(http: HttpClient, httpUrlGenerator: HttpUrlGenerator) {
     super('Product', http, httpUrlGenerator);
   }
-  entityUrl = environment.apiEndpoint + '/Products/';
-  entitiesUrl = environment.apiEndpoint + '/Products';
+  entityUrl = environment.apiEndpoint + 'Products/';
+  entitiesUrl = environment.apiEndpoint + 'Products';
   // add(color: Product): Observable<Product> {
   //   return this.http.post(this.entityUrl, color).pipe(map((res: Product) => res));
   // }
