@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       const user = this.form.value;
       this.authService
-        .SignUp(user.name, user.email, user.password, user.photo)
+        .Register(user.name, user.email, user.password, user.photo)
         .then((res) => {
           console.log(res);
         });

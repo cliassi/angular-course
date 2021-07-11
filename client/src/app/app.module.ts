@@ -16,7 +16,23 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DigitOnlyDirective } from './@directives/digit-only.directive';
 import { CustomeDatePipe } from './@pipes/custome-date.pipe';
 import { LoaderInterceptor } from './loader.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers';
+import {
+  EntityDataService,
+  EntityDefinitionService,
+  EntityMetadataMap,
+} from '@ngrx/data';
+import {
+  ProductDataService,
+  ProductEntityService,
+  ProductResolver,
+} from './products/product.entity.service';
 firebase.initializeApp(environment.firebaseConfig);
+
+const entityMedadata: EntityMetadataMap = {
+  Product: {},
+};
 
 @NgModule({
   declarations: [
@@ -36,8 +52,21 @@ firebase.initializeApp(environment.firebaseConfig);
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictActionSerializability: false,
+        strictStateSerializability: true,
+      },
+    }),
   ],
   providers: [
+    EntityDefinitionService,
+    EntityDataService,
+    ProductDataService,
+    ProductEntityService,
+    ProductResolver,
     DigitOnlyDirective,
     {
       provide: HTTP_INTERCEPTORS,
@@ -47,4 +76,13 @@ firebase.initializeApp(environment.firebaseConfig);
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService,
+    private productDataService: ProductDataService
+  ) {
+    eds.registerMetadataMap(entityMedadata);
+    entityDataService.registerService('Product', productDataService);
+  }
+}

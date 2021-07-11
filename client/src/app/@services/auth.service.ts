@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
@@ -5,6 +6,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -17,7 +19,8 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    private storage: StorageService
+    private storage: StorageService,
+    private http: HttpClient
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -27,6 +30,26 @@ export class AuthService {
         this.storage.set('user', null);
       }
     });
+  }
+
+  Register(name: string, email: string, password: string, photo: string) {
+    return this.http
+      .post(`${environment.apiEndpoint}auth`, {
+        name: name,
+        email: email,
+        password: password,
+        photo: photo,
+      })
+      .toPromise();
+  }
+
+  Login(email: string, password: string) {
+    return this.http
+      .post(`${environment.apiEndpoint}auth/login`, {
+        email: email,
+        password: password,
+      })
+      .toPromise();
   }
 
   SignUp(name: string, email: string, password: string, photo: string) {
@@ -81,8 +104,8 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    const user = this.storage.get('user');
-    return user !== null && user.uid ? true : false;
+    const user = this.storage.get('auth');
+    return user !== null && user.token ? true : false;
   }
 }
 
