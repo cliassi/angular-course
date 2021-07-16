@@ -31,8 +31,14 @@ import {
 } from './products/product.entity.service';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ParentComponentComponent } from './pagesw/parent-component/parent-component.component';
+import { ChildOneComponent } from './pagesw/child-one/child-one.component';
+import { ChildTwoComponent } from './pagesw/child-two/child-two.component';
+import { ChildThreeComponent } from './pagesw/child-three/child-three.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 firebase.initializeApp(environment.firebaseConfig);
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const entityMedadata: EntityMetadataMap = {
   Product: {},
 };
@@ -45,11 +51,18 @@ const entityMedadata: EntityMetadataMap = {
     LoginComponent,
     DigitOnlyDirective,
     CustomeDatePipe,
+    ParentComponentComponent,
+    ChildOneComponent,
+    ChildTwoComponent,
+    ChildThreeComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    BsDatepickerModule.forRoot(),
+    TabsModule,
     //Firebase
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,

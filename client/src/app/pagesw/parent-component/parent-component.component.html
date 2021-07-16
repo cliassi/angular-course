@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <app-child-one [fromParent]="forChildOne" (decreament)="subtract($event)"></app-child-one>
+    </div>
+    <div class="col-4">
+      <app-child-two></app-child-two>
+    </div>
+    <div class="col-4">
+      <app-child-three></app-child-three>
+    </div>
+
+    <button class="btn btn-success" (click)="forChildOne = forChildOne + 1">Add 1 </button>
+
+    <div class="p-3">
+      {{forChildOne}}
+    </div>
+
+
+    <button class="btn btn-success" (click)="inc()">Inc</button>
+
+    <h1 class="p-1 mx-5">{{ts.counter$ | async}}</h1>
+  </div>
+</div>

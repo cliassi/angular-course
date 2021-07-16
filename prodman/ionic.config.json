@@ -1,0 +1,7 @@
+{
+  "name": "prodman",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

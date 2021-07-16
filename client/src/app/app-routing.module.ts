@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './@guards/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ParentComponentComponent } from './pagesw/parent-component/parent-component.component';
 import { ProductResolver } from './products/product.entity.service';
 import { ProductsComponent } from './products/products.component';
 
@@ -19,7 +20,11 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
     canActivate: [AuthGuard],
-    resolve: [ProductResolver]
+    resolve: [ProductResolver],
+  },
+  {
+    path: 'coms',
+    component: ParentComponentComponent,
   },
 ];
 
